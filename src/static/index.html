@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mergington High School Activities</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Add some margin to the participants section */
+      .participants-section {
+        margin-top: 1em;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 0.75em 1em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+      .participants-section h4 {
+        margin: 0 0 0.5em 0;
+        font-size: 1.05em;
+        color: #3a3a3a;
+        font-weight: 600;
+      }
+      .participants-list {
+        margin: 0;
+        padding-left: 1.2em;
+        color: #555;
+        font-size: 0.98em;
+      }
+      .participants-list li {
+        margin-bottom: 0.2em;
+        list-style-type: disc;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -13,7 +39,7 @@
     </header>
 
     <main>
-      <section id="activities-container">
+      <section id="activities-container" class="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
           <!-- Activities will be loaded here -->
@@ -26,7 +52,12 @@
         <form id="signup-form">
           <div class="form-group">
             <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="your-email@mergington.edu"
+            />
           </div>
           <div class="form-group">
             <label for="activity">Select Activity:</label>
@@ -39,6 +70,24 @@
         </form>
         <div id="message" class="hidden"></div>
       </section>
+
+      <div class="activity-card" id="activity-${name}">
+        <h2>${name}</h2>
+        <p><strong>Description:</strong> ${activity.description}</p>
+        <p><strong>Schedule:</strong> ${activity.schedule}</p>
+        <p><strong>Max Participants:</strong> ${activity.max_participants}</p>
+        <div class="participants-section">
+          <strong>Participants:</strong>
+          <ul class="participants-list">
+            ${activity.participants && activity.participants.length > 0 ? activity.participants.map(p => `<li>${p}</li>`).join('') : '<li><em>No participants yet</em></li>'}
+          </ul>
+        </div>
+        <form class="signup-form">
+          <input type="email" name="email" placeholder="Your email" required />
+          <button type="submit">Sign Up</button>
+        </form>
+        <div class="signup-message"></div>
+      </div>
     </main>
 
     <footer>
